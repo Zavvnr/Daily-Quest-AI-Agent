@@ -11,8 +11,19 @@ function App() {
       <p className="title">
         Welcome to Daily Quest AI Agent!
       </p>
+      <h2>Let's Start by Choosing a Course</h2>
       <div>
-        <a href="https://vite.dev" target="_blank">
+        <a>Linear Optimization  </a>
+        <a>Graphs and Networks in Data Science  </a>
+        <a>Securing Information Networks  </a>
+      </div>
+      <div>
+        <a>Responsibility in the Age of Big Data and AI  </a>
+        <a>Statistical Data Visualization  </a>
+        <a>Interaction Design Studio  </a>
+      </div>
+      <div>
+                <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
