@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+// import nodejsLogo from './assets/nodejs.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [course, setCourse] = useState('');
 
   return (
     <>
@@ -13,31 +14,42 @@ function App() {
       </p>
       <h2>Let's Start by Choosing a Course</h2>
       <div>
-        <a>Linear Optimization  </a>
-        <a>Graphs and Networks in Data Science  </a>
-        <a>Securing Information Networks  </a>
+        <button class="courses" onClick={() => setCourse('Linear Optimization')}>Linear Optimization  </button>
+        <button class="courses" onClick={() => setCourse('Graphs and Networks in Data Science')}>Graphs and Networks in Data Science  </button>
+        <button class="courses" onClick={() => setCourse('Securing Information Networks')}>Securing Information Networks  </button>
       </div>
       <div>
-        <a>Responsibility in the Age of Big Data and AI  </a>
-        <a>Statistical Data Visualization  </a>
-        <a>Interaction Design Studio  </a>
+        <button class="courses" onClick={() => setCourse('Responsibility in the Age of Big Data and AI')}>Responsibility in the Age of Big Data and AI  </button>
+        <button class="courses" onClick={() => setCourse('Statistical Data Visualization')}>Statistical Data Visualization  </button>
+        <button class="courses" onClick={() => setCourse('Interaction Design Studio')}>Interaction Design Studio  </button>
       </div>
       <div>
-                <a href="https://vite.dev" target="_blank">
+        <h2>Your Selected Course is: {course}</h2>
+      </div>
+      <div>
+        <h2>About</h2>
+        <p>This is a daily quest AI agent designed for us to learn and create materials based on courses we are taking each semester.
+          It helps students engage with course content through interactive AI-driven activities. The agent generates daily quests, 
+          quizzes, and study guides tailored to the selected course, using an LLM to provide personalized learning experiences. Frameworks and tools used 
+          include Langchain, MCP, Vite, React, Express.js, and OpenAI's GPT-4 API. The sourcecode is available on
+          <a href="https://github.com/Zavvnr/Daily-Quest-AI-Agent"> https://github.com/Zavvnr/Daily-Quest-AI-Agent</a>
+        </p>
+      </div>
+      <div>
+        <h1>
+          Made Possible by:
+        </h1>
+      </div>
+      <div>
+        <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <a href="https://reac.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
     </>
   )
