@@ -11,34 +11,41 @@ const { schema } = require('mongoose');
 const courseSchema = new schema({
   name: String,
   description: String,
-  prompt: String
+  prompt: String,
+  answers: [String]
 });
-const Course = mongoose.model('Course', courseSchema);
+const Courses = mongoose.model('Course', courseSchema);
 mongoose.connect('mongodb://localhost/myDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 const db = mongoose.connection;
 
-// data processing will be implemented later
+// GET request to fetch course prompts and previous answers to be given to the AI agent
 app.get('/api/courses', async (req, res) => {
   try {
-    const courses = await Course.find(req.body.name);
-    res.json(courses);
+    const Course = await Courses.find(req.body.name);
+    // previous prompts and answers to be implemented by the agent
+    res.json(Course.prompt);
+    res.json(Course.answers);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// data processing will be implemented later
+// POST request to add new course prompts and answers based on user interaction with the AI agent
 app.post('/api/courses', async (req, res) => {
-  await mongoose.connect('mongodb://localhost/myDB', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-  const updateCourse = new Course({
-    name: req.body.name,
-    description: req.body.description,
-    prompt: req.body.prompt
-  });
+  const Course = await Courses.findOne({ name: req.body.name });
+  if (!Course) {
+    return res.status(404).json({ message: 'Course not found' });
+  }
+  Course.prompt.push(req.body.prompt);
+  Course.answers.push(req.body.answer);
+  try {
+    const result = await Course.save();
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+  mongoose.connection.close();
 });
