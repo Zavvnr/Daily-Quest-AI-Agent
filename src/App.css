@@ -18,6 +18,26 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.logo.nodejs:hover {
+  filter: drop-shadow(0 0 2em #68a063aa);
+}
+
+.logo.expressjs:hover {
+  filter: drop-shadow(0 0 2em #e7d8d8aa);
+}
+
+.logo.flask:hover {
+  filter: drop-shadow(0 0 2em #bfc813aa);
+}
+
+.logo.mongodb:hover {
+  filter: drop-shadow(0 0 2em #47a248aa);
+}
+
+.logo.langchain:hover {
+  filter: drop-shadow(0 0 2em #ef4444aa);
+}
+
 .button {
   font-weight: 700;
   border-radius: 8px;

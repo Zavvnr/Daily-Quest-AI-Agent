@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-// import nodejsLogo from './assets/nodejs.svg'
+import nodeJsLogo from '/nodedotjs.svg'
+import expressJsLogo from '/express.svg'
+import flaskLogo from '/flask.svg'
+import mongodbLogo from '/mongodb.svg'
+import langchainLogo from '/langchain.svg'
+// import pythonLogo from '/python.svg'
 import './App.css'
 
 function App() {
@@ -47,8 +52,20 @@ function App() {
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
-        <a href="https://reac.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href="https://nodejs.org" target="_blank">
+          <img src={nodeJsLogo} className="logo nodejs" alt="Node.js logo" />
+        </a>
+        <a href="https://expressjs.com" target="_blank">
+          <img src={expressJsLogo} className="logo expressjs" alt="Express.js logo" />
+        </a>
+        <a href="https://flask.palletsprojects.com" target="_blank">
+          <img src={flaskLogo} className="logo flask" alt="Flask logo" />
+        </a>
+        <a href="https://www.mongodb.com" target="_blank">
+          <img src={mongodbLogo} className="logo mongodb" alt="MongoDB logo" />
+        </a>
+        <a href="https://langchain.com" target="_blank">
+          <img src={langchainLogo} className="logo langchain" alt="Langchain logo" />
         </a>
       </div>
     </>
