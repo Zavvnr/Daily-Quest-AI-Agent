@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import nodeJsLogo from '/nodedotjs.svg'
@@ -11,6 +12,22 @@ import './App.css'
 
 function App() {
   const [course, setCourse] = useState('');
+
+  function handleCourseChange(course) {
+    setCourse(course.target.value);
+
+    useEffect(() => {
+      axios.get('/api/items').then(response => {setItems(response.data);});
+    }, []);
+
+    return (
+      <ul>
+          {items.map((item, index) => 
+          <li key={index}>{item}</li>
+        )}
+      </ul>
+    );
+  }
 
   return (
     <>

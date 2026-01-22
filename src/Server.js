@@ -11,7 +11,7 @@ const { schema } = require('mongoose');
 const courseSchema = new schema({
   name: String,
   description: String,
-  prompt: String,
+  prompts: [String],
   answers: [String]
 });
 const Courses = mongoose.model('Course', courseSchema);
