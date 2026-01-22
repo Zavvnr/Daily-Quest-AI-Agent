@@ -12,22 +12,14 @@ import './App.css'
 
 function App() {
   const [course, setCourse] = useState('');
+  const [items, setItems] = useState([]);
 
-  function handleCourseChange(course) {
-    setCourse(course.target.value);
-
-    useEffect(() => {
-      axios.get('/api/items').then(response => {setItems(response.data);});
-    }, []);
-
-    return (
-      <ul>
-          {items.map((item, index) => 
-          <li key={index}>{item}</li>
-        )}
-      </ul>
-    );
-  }
+  useEffect(() => {
+    if (course) {
+      console.log(`Fetching items for: ${course}`);
+      axios.get('/api/items').then(response => { setItems(response.data); });
+    }
+  }, [course]);
 
   return (
     <>
@@ -36,18 +28,28 @@ function App() {
       </p>
       <h2>Let's Start by Choosing a Course</h2>
       <div>
-        <button class="courses" onClick={() => setCourse('Linear Optimization')}>Linear Optimization  </button>
-        <button class="courses" onClick={() => setCourse('Graphs and Networks in Data Science')}>Graphs and Networks in Data Science  </button>
-        <button class="courses" onClick={() => setCourse('Securing Information Networks')}>Securing Information Networks  </button>
+        <button className="courses" onClick={() => setCourse('Linear Optimization')}>Linear Optimization  </button>
+        <button className="courses" onClick={() => setCourse('Graphs and Networks in Data Science')}>Graphs and Networks in Data Science  </button>
+        <button className="courses" onClick={() => setCourse('Securing Information Networks')}>Securing Information Networks  </button>
       </div>
       <div>
-        <button class="courses" onClick={() => setCourse('Responsibility in the Age of Big Data and AI')}>Responsibility in the Age of Big Data and AI  </button>
-        <button class="courses" onClick={() => setCourse('Statistical Data Visualization')}>Statistical Data Visualization  </button>
-        <button class="courses" onClick={() => setCourse('Interaction Design Studio')}>Interaction Design Studio  </button>
+        <button className="courses" onClick={() => setCourse('Responsibility in the Age of Big Data and AI')}>Responsibility in the Age of Big Data and AI  </button>
+        <button className="courses" onClick={() => setCourse('Statistical Data Visualization')}>Statistical Data Visualization  </button>
+        <button className="courses" onClick={() => setCourse('Interaction Design Studio')}>Interaction Design Studio  </button>
       </div>
       <div>
         <h2>Your Selected Course is: {course}</h2>
       </div>
+
+      <div className="quest-form-container" style={{ margin: '20px 0', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+          <h3>Ask a question about {course}</h3>
+          <form onSubmit={(e) => { e.preventDefault(); alert('Question Submitted!'); }}>
+            <p>Enter your question:</p>
+            <input type="text" name="question" placeholder="Your question" style={{ padding: '8px', width: '60%', marginRight: '10px' }}/>
+            <input type="submit" value="Submit" style={{ padding: '8px 16px', cursor: 'pointer' }}/>
+          </form>
+        </div>
+
       <div>
         <h2>About</h2>
         <p>This is a daily quest AI agent designed for us to learn and create materials based on courses we are taking each semester.
