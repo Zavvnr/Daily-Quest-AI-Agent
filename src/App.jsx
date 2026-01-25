@@ -11,7 +11,7 @@ import langchainLogo from '/langchain.svg'
 import './App.css'
 
 function App() {
-  const [course, setCourse] = useState('');
+  const [course, setCourse] = useState('Linear Optimization'); // default course
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -21,6 +21,37 @@ function App() {
     }
   }, [course]);
 
+  const handleAddPrompt = async (e) => {
+    // stop the page from reloading
+    e.preventDefault();
+
+    // get the text from the input field named "question"
+    const questionText = e.target.question.value;
+
+    if (!course) {
+      alert("Please select a course first!");
+      return;
+    }
+
+    try {
+      // send the PATCH request to add the prompt to the DB
+      await axios.patch('http://localhost:5000/api/courses/prompts', {
+        name: course,
+        prompt: questionText
+      });
+
+      alert('Question saved to database!');
+      
+      // clear input field
+      // e.target.reset();
+
+    } catch (error) {
+      console.error("Error saving prompt:", error);
+      alert("Failed to save prompt.");
+    }
+  };
+
+  // JSX to render the component to the DOM to create the UI
   return (
     <>
       <p className="title">
@@ -43,9 +74,9 @@ function App() {
 
       <div className="quest-form-container" style={{ margin: '20px 0', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
           <h3>Ask a question about {course}</h3>
-          <form onSubmit={(e) => { e.preventDefault(); alert('Question Submitted!'); }}>
-            <p>Enter your question:</p>
-            <input type="text" name="question" placeholder="Your question" style={{ padding: '8px', width: '60%', marginRight: '10px' }}/>
+          <form onSubmit={handleAddPrompt} style={{ display: 'flex', alignItems: 'center' }}>
+            <p style={{ marginLeft: '75px' }}>Enter your question: </p>
+            <input type="text" name="question" placeholder="Your question" style={{ padding: '8px', width: '60%', marginRight: '10px', marginLeft: '10px' }}/>
             <input type="submit" value="Submit" style={{ padding: '8px 16px', cursor: 'pointer' }}/>
           </form>
         </div>
