@@ -1,36 +1,34 @@
+import json
 import os
+import sys
 
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI
+from openai import OpenAI
 
-
-# Load the API key from the .env variable
-load_dotenv()
+# Load the API key from the json file
+with open('config.json', 'r') as file:
+    config = json.load(file)
 
 # configuration
-GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-CANVAS_URL = os.getenv("CANVAS_API_URL")
-CANVAS_TOKEN = os.getenv("CANVAS_API_TOKEN")
-LOCATION = "Madison, Wisconsin"
-TIMEZONE = "America/Chicago"
+OPENAI_API_KEY = config['OPENAI_API_KEY']
+LOCATION = config['LOCATION']
+TIMEZONE = config['TIMEZONE']
 
-# 2. Initialize the Gemini model
-# LangChain automatically looks for the GOOGLE_API_KEY in your environment
-llm = ChatGoogleGenerativeAI(model="gemini-pro")
+# Initialize the OpenAI client
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
+llm = openai_client.chat.completions.create(
+    model="o3-mini",
+    temperature=0.7,
+)
 
-print("Chatbot is ready. Ask me anything! (Type 'exit' to quit)")
+print("Chatbot is ready!")
 
-# 3. Create a simple loop to chat
 while True:
-    # Get input from the user
+    # get input from the user
     user_prompt = input("You: ")
     
-    if user_prompt.lower() == 'exit':
-        break
-    
-    # Send the prompt to the model and get a response
+    # send the prompt to the model and get a response
     response = llm.invoke(user_prompt)
     
-    # Print the model's answer
-    print(f"Gemini: {response.content}")
+    # answer from the model
+    reply = response.choices[0].message['content']
