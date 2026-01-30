@@ -38,6 +38,18 @@
   filter: drop-shadow(0 0 2em #ef4444aa);
 }
 
+.logo.python:hover {
+  filter: drop-shadow(0 0 2em #3776abaa);
+}
+
+.logo.fastapi:hover {
+  filter: drop-shadow(0 0 2em #009688aa);
+}
+
+.logo.openai:hover {
+  filter: drop-shadow(0 0 2em #10a350aa);
+}
+
 .button {
   font-weight: 700;
   border-radius: 8px;

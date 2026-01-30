@@ -7,7 +7,9 @@ import expressJsLogo from '/express.svg'
 import flaskLogo from '/flask.svg'
 import mongodbLogo from '/mongodb.svg'
 import langchainLogo from '/langchain.svg'
-// import pythonLogo from '/python.svg'
+import pythonLogo from '/python.svg'
+import fastapiLogo from '/fastapi.svg'
+import openaiLogo from '/openai.svg'
 import './App.css'
 
 function App() {
@@ -116,6 +118,15 @@ function App() {
         </a>
         <a href="https://langchain.com" target="_blank">
           <img src={langchainLogo} className="logo langchain" alt="Langchain logo" />
+        </a>
+        <a href="https://platform.openai.com" target="_blank">
+          <img src={openaiLogo} className="logo openai" alt="OpenAI logo" />
+        </a>
+        <a href="https://www.python.org" target="_blank">
+          <img src={pythonLogo} className="logo python" alt="Python logo" />
+        </a>
+        <a href="https://fastapi.tiangolo.com" target="_blank">
+          <img src={fastapiLogo} className="logo fastapi" alt="FastAPI logo" />
         </a>
       </div>
     </>

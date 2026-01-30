@@ -34,7 +34,7 @@ def generate_quest(user_notes, course_name, course_description):
     """
     
     # system prompt
-    system_prompt = load_system_prompt('system_prompt.txt')
+    system_prompt = load_system_prompt('DAILY-QUEST-AI-AGENT/system_prompt.txt')
     try:
         response = openai_client.chat.completions.create(
             model="o3-mini", # Best Reasoning Mini model
