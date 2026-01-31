@@ -26,16 +26,16 @@
   filter: drop-shadow(0 0 2em #e7d8d8aa);
 }
 
-.logo.flask:hover {
-  filter: drop-shadow(0 0 2em #bfc813aa);
-}
-
 .logo.mongodb:hover {
   filter: drop-shadow(0 0 2em #47a248aa);
 }
 
 .logo.langchain:hover {
   filter: drop-shadow(0 0 2em #ef4444aa);
+}
+
+.logo.mcp:hover {
+  filter: drop-shadow(0 0 2em #ff6f00aa);
 }
 
 .logo.python:hover {
