@@ -15,6 +15,8 @@ import './App.css'
 function App() {
   const [course, setCourse] = useState('Linear Optimization'); // default course
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [questData, setQuestData] = useState(null);
 
   useEffect(() => {
     if (course) {
@@ -23,33 +25,36 @@ function App() {
     }
   }, [course]);
 
-  const handleAddPrompt = async (e) => {
-    // stop the page from reloading
+  const handleGenerateQuest = async (e) => {
     e.preventDefault();
-
-    // get the text from the input field named "question"
-    const questionText = e.target.question.value;
+    const userNotes = e.target.question.value;
 
     if (!course) {
       alert("Please select a course first!");
       return;
     }
 
+    setLoading(true);
+    setQuestData(null); // Clear previous result
+
     try {
-      // send the PATCH request to add the prompt to the DB
-      await axios.patch('http://localhost:5000/api/courses/prompts', {
-        name: course,
-        prompt: questionText
+      // Node.js bridge to call Python backend
+      // Node.js makes a POST request to the Python FastAPI server
+      const response = await axios.post('http://localhost:5000/api/generate-quest', {
+        courseName: course,
+        userNotes: userNotes
       });
 
-      alert('Question saved to database!');
-      
-      // clear input field
-      // e.target.reset();
+      // Python returns a JSON string, so we might need to parse it if it's double-stringified
+      const data = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
+
+      setQuestData(data); // Save the quest to state
 
     } catch (error) {
-      console.error("Error saving prompt:", error);
-      alert("Failed to save prompt.");
+      console.error("Error generating quest:", error);
+      alert("Failed to generate quest. Is the backend running?");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,20 +79,55 @@ function App() {
         <h2>Your Selected Course is: {course}</h2>
       </div>
 
-      <div className="quest-form-container" style={{ margin: '20px 0', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-          <h3>Ask a question about {course}</h3>
-          <form onSubmit={handleAddPrompt} style={{ display: 'flex', alignItems: 'center' }}>
-            <p style={{ marginLeft: '75px' }}>Enter your question: </p>
-            <input type="text" name="question" placeholder="Your question" style={{ padding: '8px', width: '60%', marginRight: '10px', marginLeft: '10px' }}/>
-            <input type="submit" value="Submit" style={{ padding: '8px 16px', cursor: 'pointer' }}/>
-          </form>
+      <div className="quest-form-container" style={{ margin: '20px auto', padding: '20px', border: '1px solid #444', borderRadius: '8px', maxWidth: '600px' }}>
+        <h3>Generate a Quest</h3>
+        <p>What did you learn in class today?</p>
+
+        <form onSubmit={handleGenerateQuest} style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+          <input
+            type="text"
+            name="question"
+            placeholder="e.g., We discussed Simplex Method..."
+            style={{ padding: '10px', width: '70%', borderRadius: '4px', border: '1px solid #ccc' }}
+            required
+          />
+          <button type="submit" disabled={loading} style={{ cursor: 'pointer' }}>
+            {loading ? "Thinking..." : "Generate"}
+          </button>
+        </form>
+      </div>
+
+      {questData && (
+        <div className="quest-card" style={{
+          marginTop: '20px',
+          padding: '20px',
+          backgroundColor: '#1a1a1a',
+          border: '2px solid #646cff',
+          borderRadius: '10px',
+          textAlign: 'left',
+          maxWidth: '600px',
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        }}>
+          <h2 style={{ marginTop: 0 }}>⚔️ {questData.quest_title || "New Quest"}</h2>
+          <p><strong>Challenge:</strong> {questData.challenge}</p>
+
+          <details style={{ marginTop: '15px', cursor: 'pointer' }}>
+            <summary>Need a Hint?</summary>
+            <p style={{ color: '#aaa', marginTop: '5px' }}>{questData.hint}</p>
+          </details>
+
+          <div style={{ marginTop: '15px', textAlign: 'right', color: '#ffd700', fontWeight: 'bold' }}>
+            Reward: +{questData.xp_reward || 10} XP
+          </div>
         </div>
+      )}
 
       <div>
         <h2>About</h2>
         <p>This is a daily quest AI agent designed for us to learn and create materials based on courses we are taking each semester.
-          It helps students engage with course content through interactive AI-driven activities. The agent generates daily quests, 
-          quizzes, and study guides tailored to the selected course, using an LLM to provide personalized learning experiences. Frameworks and tools used 
+          It helps students engage with course content through interactive AI-driven activities. The agent generates daily quests,
+          quizzes, and study guides tailored to the selected course, using an LLM to provide personalized learning experiences. Frameworks and tools used
           include Langchain, MCP, Vite, React, Express.js, and OpenAI's GPT-4 API. The sourcecode is available on
           <a href="https://github.com/Zavvnr/Daily-Quest-AI-Agent"> https://github.com/Zavvnr/Daily-Quest-AI-Agent</a>
         </p>

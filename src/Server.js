@@ -1,5 +1,3 @@
-// pythonshell will be used later
-import { PythonShell } from 'python-shell';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -45,7 +43,7 @@ async function initialDBSetup() {
 }
 const db = mongoose.connection;
 
-// DEBUG ROUTE: Check what is actually inside the DB
+// DEBUG Check what is actually inside the DB
 app.get('/api/debug/courses', async (req, res) => {
   try {
     const allCourses = await Courses.find({});
@@ -109,6 +107,46 @@ app.patch('/api/courses/prompts', async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+app.post('/api/generate-quest', async (req, res) => {
+  const { courseName, userNotes } = req.body;
+
+  console.log(`[Node] Received request for ${courseName}. Calling Python...`);
+
+  try {
+    // Send data to Python Server
+    const pythonResponse = await fetch('http://127.0.0.1:8000/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        course: courseName, // Matching the key expected by Python
+        notes: userNotes 
+      })
+    });
+
+    if (!pythonResponse.ok) {
+      throw new Error(`Python server error: ${pythonResponse.statusText}`);
+    }
+
+    const data = await pythonResponse.json();
+    console.log(`[Node] Python replied:`, data);
+
+    // Immediately save the prompt and answer to MongoDB
+     const course = await Courses.findOne({ name: courseName });
+     if (course) {
+       course.prompts.push(userNotes);   // Save user input
+       course.answers.push(JSON.stringify(data)); // Save AI response
+       await course.save();
+    }
+
+    // Send the Python response back to the frontend
+    res.json(data);
+
+  } catch (err) {
+    console.error("Error communicating with Python:", err);
+    res.status(500).json({ error: "Failed to generate quest. Is the Python server running?" });
   }
 });
 
