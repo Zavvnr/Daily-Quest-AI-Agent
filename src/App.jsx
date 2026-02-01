@@ -13,6 +13,12 @@ import openaiLogo from '/openai.svg'
 import './App.css'
 
 function App() {
+
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [inputPassword, setInputPassword] = useState("");
+
+  // Main app state
   const [course, setCourse] = useState('Linear Optimization'); // default course
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,7 +49,9 @@ function App() {
       const response = await axios.post('http://localhost:5000/api/generate-quest', {
         courseName: course,
         userNotes: userNotes
-      });
+      },
+        { headers: { 'x-access-token': inputPassword } }
+      );
 
       // Python returns a JSON string, so we might need to parse it if it's double-stringified
       const data = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
@@ -57,6 +65,27 @@ function App() {
       setLoading(false);
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="login-container" style={{ textAlign: 'center', marginTop: '150px' }}>
+        <h1>Private Access</h1>
+        <p>This chatbot is password protected.</p>
+        <form onSubmit={(e) => { e.preventDefault(); setIsAuthenticated(true); }}>
+          <input
+            type="password"
+            placeholder="Enter Admin Password"
+            value={inputPassword}
+            onChange={(e) => setInputPassword(e.target.value)}
+            style={{ padding: '10px', fontSize: '16px', borderRadius: '5px', border: '1px solid #444' }}
+          />
+          <button type="submit" style={{ marginLeft: '10px', padding: '10px 20px', cursor: 'pointer' }}>
+            Unlock
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   // JSX to render the component to the DOM to create the UI
   return (

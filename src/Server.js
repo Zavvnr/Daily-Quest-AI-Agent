@@ -1,11 +1,30 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import 'dotenv/config';
 
 // Express.js is used to create the server and handle API requests
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+if (!ADMIN_PASSWORD) {
+  console.error("❌ FATAL ERROR: ADMIN_PASSWORD is not defined in .env");
+  process.exit(1); // Stop the server if no password is set
+}
+
+const requireAuth = (req, res, next) => {
+  const providedPassword = req.headers['x-access-token']; // Expecting password in header
+  
+  if (providedPassword !== process.env.ADMIN_PASSWORD) {
+    console.log(`[Auth] Blocked access attempt with token: ${providedPassword}`);
+    return res.status(403).json({ message: "⛔ Access Denied: Wrong Password" });
+  }
+  
+  next(); // Password is correct, proceed!
+};
 
 // mongoose is used to connect to MongoDB, define schemas, and store information
 const { Schema } = mongoose;
@@ -110,7 +129,7 @@ app.patch('/api/courses/prompts', async (req, res) => {
   }
 });
 
-app.post('/api/generate-quest', async (req, res) => {
+app.post('/api/generate-quest', requireAuth, async (req, res) => {
   const { courseName, userNotes } = req.body;
 
   console.log(`[Node] Received request for ${courseName}. Calling Python...`);
@@ -156,3 +175,5 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/myDB')

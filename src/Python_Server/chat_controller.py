@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from chat_manager import ChatManager
+from Python_Server.chat_manager import ChatManager
 
 router = APIRouter()
 manager = ChatManager()

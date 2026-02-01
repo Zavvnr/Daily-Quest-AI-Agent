@@ -1,4 +1,3 @@
-# services/chat_service.py
 from openai import OpenAI
 import os
 
