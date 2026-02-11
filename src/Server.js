@@ -53,7 +53,7 @@ async function initialDBSetup() {
       { name: 'Graphs and Networks in Data Science', description: 'Course on Graphs and Networks in Data Science', prompts: [], answers: [] },
       { name: 'Securing Information Networks', description: 'Course on Securing Information Networks', prompts: [], answers: [] },
       { name: 'Responsibility in the Age of Big Data and AI', description: 'Course on Responsibility in the Age of Big Data and AI', prompts: [], answers: [] },
-      { name: 'Statistical Data Visualization', description: 'Course on Statistical Data Visualization', prompts: [], answers: [] },
+      { name: 'Data Storytelling with Visualization', description: 'Course on Data Storytelling with Visualization', prompts: [], answers: [] },
       { name: 'Interaction Design Studio', description: 'Course on Interaction Design Studio', prompts: [], answers: [] }
     ];
     await Courses.insertMany(initialCourses);

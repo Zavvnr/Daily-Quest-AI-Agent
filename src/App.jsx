@@ -101,7 +101,7 @@ function App() {
       </div>
       <div>
         <button className="courses" onClick={() => setCourse('Responsibility in the Age of Big Data and AI')}>Responsibility in the Age of Big Data and AI  </button>
-        <button className="courses" onClick={() => setCourse('Statistical Data Visualization')}>Statistical Data Visualization  </button>
+        <button className="courses" onClick={() => setCourse('Data Storytelling with Visualization')}>Data Storytelling with Visualization  </button>
         <button className="courses" onClick={() => setCourse('Interaction Design Studio')}>Interaction Design Studio  </button>
       </div>
       <div>
