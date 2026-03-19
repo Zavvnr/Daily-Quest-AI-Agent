@@ -18,7 +18,7 @@ if (!ADMIN_PASSWORD) {
 const requireAuth = (req, res, next) => {
   const providedPassword = req.headers['x-access-token']; // Expecting password in header
   
-  if (providedPassword !== process.env.ADMIN_PASSWORD) {
+  if (providedPassword !== ADMIN_PASSWORD) {
     console.log(`[Auth] Blocked access attempt with token: ${providedPassword}`);
     return res.status(403).json({ message: "⛔ Access Denied: Wrong Password" });
   }
