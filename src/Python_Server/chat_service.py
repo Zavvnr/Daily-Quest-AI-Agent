@@ -33,7 +33,10 @@ class ChatService:
         )
         
         # LangChain handles the history automatically!
-        self.memory = ConversationBufferMemory(memory_key="chat_history")
+        self.memory = ConversationBufferMemory(
+            memory_key="chat_history", 
+            input_key="notes"
+        )
         
         # Load the system prompt template and create the PromptTemplate object
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +45,7 @@ class ChatService:
         
         # Create chain with the template (variables will be filled on generate_response)
         self.prompt = PromptTemplate(
-            input_variables=["chat_history", "notes", "course_name"],
+            input_variables=["chat_history", "notes", "course_name", "course_description"],
             template=self.raw_template
         )
         
@@ -56,15 +59,11 @@ class ChatService:
         current_dir = os.path.dirname(os.path.abspath(__file__))
         self.prompt_path = os.path.join(current_dir, "../system_prompt.txt")
 
-    def generate_response(self, course_name, notes):
-        # Now that we have course_name and notes, we can fill the template and run the chain
-        filled_template = self.raw_template.replace("{course_name}", course_name)
-        filled_template = filled_template.replace("{course_description}", "General academic topic")
-        
+    def generate_response(self, course_name, notes, model_id=None):
         return self.chain.run(
             course_name=course_name, 
             notes=notes,
-            chat_history=""  # Or pull from memory
+            course_description="General academic topic"
         )
 
     def _get_system_prompt(self, course_name):
@@ -72,7 +71,7 @@ class ChatService:
             with open(self.prompt_path, "r", encoding="utf-8") as f:
                 content = f.read()
                 filled_content = content.replace("{course_name}", course_name)
-                filled_content = filled_content.replace("{course_description}", "General academic topic")
+                # filled_content = filled_content.replace("{course_description}", "General academic topic")
                 return filled_content
             
         except FileNotFoundError:
