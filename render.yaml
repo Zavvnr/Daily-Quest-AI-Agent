@@ -1,0 +1,39 @@
+services:
+  # Web service for React frontend + Node backend
+  - type: web
+    name: daily-quest-web
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false  # You'll set this after connecting MongoDB
+      - key: OPENAI_API_KEY
+        sync: false  # You'll set this from environment
+      - key: ADMIN_PASSWORD
+        sync: false  # You'll set this from environment
+      - key: ENVIRONMENT
+        value: production
+
+  # Python FastAPI service
+  - type: web
+    name: daily-quest-python
+    env: python-3
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python src/main.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ENVIRONMENT
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 8000
+
+  # PostgreSQL database (optional - for MongoDB Atlas instead, skip this)
+  # Or use the Web service's internal networking to call MongoDB Atlas

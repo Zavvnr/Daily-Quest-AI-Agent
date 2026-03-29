@@ -46,7 +46,8 @@ function App() {
     try {
       // Node.js bridge to call Python backend
       // Node.js makes a POST request to the Python FastAPI server
-      const response = await axios.post('http://localhost:5000/api/generate-quest', {
+      // Uses relative URL for compatibility with both local dev and production
+      const response = await axios.post('/api/generate-quest', {
         courseName: course,
         userNotes: userNotes
       },

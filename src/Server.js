@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import 'dotenv/config';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Express.js is used to create the server and handle API requests
 const app = express();
@@ -35,11 +37,13 @@ const courseSchema = new Schema({
   answers: [String]
 });
 const Courses = mongoose.model('Course', courseSchema);
-mongoose.connect('mongodb://127.0.0.1:27017/myDB').then(async () => {
-    console.log('connected');
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/myDB';
+mongoose.connect(MONGODB_URI).then(async () => {
+    console.log('✅ Connected to MongoDB');
     // initialize DB
     await initialDBSetup()}).catch(err => {
-    console.error('Connection error', err);
+    console.error('❌ MongoDB Connection error:', err.message);
+    process.exit(1);
 });
 
 app.use(express.json());
@@ -136,7 +140,8 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
 
   try {
     // Send data to Python Server
-    const pythonResponse = await fetch('http://127.0.0.1:8000/api/generate', {
+    const PYTHON_API_URL = process.env.PYTHON_API_URL || 'http://127.0.0.1:8000';
+    const pythonResponse = await fetch(`${PYTHON_API_URL}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
@@ -167,13 +172,20 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
     console.error("Error communicating with Python:", err);
     res.status(500).json({ error: "Failed to generate quest. Is the Python server running?" });
   }
+}); static files from React build
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use(express.static(path.join(__dirname, '../dist')));
+
+// Fallback to index.html for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 // Server setup
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`✅ Server is running on port ${port}`);
 });
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/myDB')

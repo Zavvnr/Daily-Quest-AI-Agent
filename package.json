@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:node": "node src/Server.js",
+    "start:python": "python src/main.py",
+    "start": "npm run build && node src/Server.js"
   },
   "dependencies": {
     "axios": "^1.13.2",
