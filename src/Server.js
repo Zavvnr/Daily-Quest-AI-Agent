@@ -172,7 +172,8 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
     console.error("Error communicating with Python:", err);
     res.status(500).json({ error: "Failed to generate quest. Is the Python server running?" });
   }
-}); static files from React build
+}); 
+// static files from React build
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, '../dist')));
 
