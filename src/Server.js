@@ -38,10 +38,11 @@ const courseSchema = new Schema({
 });
 const Courses = mongoose.model('Course', courseSchema);
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/myDB';
-mongoose.connect(MONGODB_URI).then(async () => {
+mongoose.connect(process.env.MONGO_URI || process.env.MONGODB_URI).then(async () => {
     console.log('✅ Connected to MongoDB');
     // initialize DB
-    await initialDBSetup()}).catch(err => {
+    await initialDBSetup();
+}).catch(err => {
     console.error('❌ MongoDB Connection error:', err.message);
     process.exit(1);
 });
@@ -189,4 +190,4 @@ app.listen(port, () => {
     console.log(`✅ Server is running on port ${port}`);
 });
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/myDB')
+// mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/myDB')
