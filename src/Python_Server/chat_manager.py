@@ -1,4 +1,4 @@
-from Python_Server.chat_service import ChatService
+from src.Python_Server.chat_service import ChatService
 
 class ChatManager:
     def __init__(self):
