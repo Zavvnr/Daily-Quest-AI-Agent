@@ -12,6 +12,8 @@ import fastapiLogo from '/fastapi.svg'
 import openaiLogo from '/openai.svg'
 import './App.css'
 
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:10000';
+
 function App() {
 
   // Authentication state
