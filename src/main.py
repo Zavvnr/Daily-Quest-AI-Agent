@@ -4,6 +4,7 @@ import uvicorn
 from Python_Server.chat_controller import router as chat_router
 import os
 from dotenv import load_dotenv, find_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables from a .env file
 load_dotenv(find_dotenv())
@@ -14,6 +15,14 @@ else:
     print("✅ OpenAI API Key loaded successfully.")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Connects Controller to the main app
 app.include_router(chat_router, prefix="/api")
