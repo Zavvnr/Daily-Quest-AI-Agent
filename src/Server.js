@@ -141,7 +141,26 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
 
   try {
     // Send data to Python Server
-    const PYTHON_API_URL = process.env.PYTHON_API_URL || 'http://127.0.0.1:8000';
+    // Grab the live URL from Render, or use localhost for local testing
+    const pythonBaseUrl = process.env.PYTHON_URL || 'http://127.0.0.1:8000';
+    const response = await fetch(`${pythonBaseUrl}/api/generate-quest`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+          course: courseName, 
+          notes: userNotes 
+      })
+    });
+
+    const questData = await response.json();
+
+    res.json(questData);
+
+    // Node checks if Python sent an error. If so, pass the error to React.
+    if (!response.ok) {
+      return res.status(response.status).json(questData);
+    }
+
     const pythonResponse = await fetch(`${PYTHON_API_URL}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
