@@ -144,7 +144,7 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
     const pythonBaseUrl = process.env.PYTHON_API_URL || 'http://127.0.0.1:8000';
     
     // Send the request to Python
-    const response = await fetch(`${pythonBaseUrl}/api/generate-quest`, {
+    const response = await fetch(`${pythonBaseUrl}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
