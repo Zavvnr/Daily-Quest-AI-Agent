@@ -140,9 +140,10 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
   console.log(`[Node] Received request for ${courseName}. Calling Python...`);
 
   try {
-    // Send data to Python Server
-    // Grab the live URL from Render, or use localhost for local testing
+    // Figure out where Python lives
     const pythonBaseUrl = process.env.PYTHON_API_URL || 'http://127.0.0.1:8000';
+    
+    // Send the request to Python
     const response = await fetch(`${pythonBaseUrl}/api/generate-quest`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -152,47 +153,34 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
       })
     });
 
-    const questData = await response.json();
+    // Unpack Python's answer
+    const data = await response.json();
 
-    res.json(questData);
-
-    // Node checks if Python sent an error. If so, pass the error to React.
+    // Check for errors from Python
     if (!response.ok) {
-      return res.status(response.status).json(questData);
+      console.error(`[Node] Python server error:`, data);
+      return res.status(response.status).json(data);
     }
 
-    const pythonResponse = await fetch(`${PYTHON_API_URL}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        course: courseName, // Matching the key expected by Python
-        notes: userNotes 
-      })
-    });
+    console.log(`[Node] Python replied successfully!`);
 
-    if (!pythonResponse.ok) {
-      throw new Error(`Python server error: ${pythonResponse.statusText}`);
+    // Save the prompt and answer to MongoDB
+    const course = await Courses.findOne({ name: courseName });
+    if (course) {
+      course.prompts.push(userNotes);   // Save user input
+      course.answers.push(JSON.stringify(data)); // Save AI response
+      await course.save();
     }
 
-    const data = await pythonResponse.json();
-    console.log(`[Node] Python replied:`, data);
-
-    // Immediately save the prompt and answer to MongoDB
-     const course = await Courses.findOne({ name: courseName });
-     if (course) {
-       course.prompts.push(userNotes);   // Save user input
-       course.answers.push(JSON.stringify(data)); // Save AI response
-       await course.save();
-    }
-
-    // Send the Python response back to the frontend
-    res.json(data);
+    // Send the final Python response back to React
+    return res.json(data);
 
   } catch (err) {
     console.error("Error communicating with Python:", err);
-    res.status(500).json({ error: "Failed to generate quest. Is the Python server running?" });
+    return res.status(500).json({ error: "Failed to generate quest. Is the Python server running?" });
   }
-}); 
+});
+
 // static files from React build
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, '../dist')));
