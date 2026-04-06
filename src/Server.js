@@ -142,7 +142,7 @@ app.post('/api/generate-quest', requireAuth, async (req, res) => {
   try {
     // Send data to Python Server
     // Grab the live URL from Render, or use localhost for local testing
-    const pythonBaseUrl = process.env.PYTHON_URL || 'http://127.0.0.1:8000';
+    const pythonBaseUrl = process.env.PYTHON_API_URL || 'http://127.0.0.1:8000';
     const response = await fetch(`${pythonBaseUrl}/api/generate-quest`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
