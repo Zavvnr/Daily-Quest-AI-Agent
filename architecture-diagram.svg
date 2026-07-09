@@ -1,0 +1,225 @@
+<svg viewBox="0 0 1480 1110" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1018"/>
+      <stop offset="1" stop-color="#151b29"/>
+    </linearGradient>
+    <radialGradient id="vig" cx="0.5" cy="0.18" r="0.9">
+      <stop offset="0" stop-color="#26304a" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#26304a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <marker id="ah" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#cbd5e8"/>
+    </marker>
+    <marker id="ahb" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8b93f8"/>
+    </marker>
+    <style>
+      .t{fill:#eef2f8}.m{fill:#97a3b8}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+      .ct{fill:#e7ecf5;font-size:15px;font-weight:600}.cs{fill:#8d99ad;font-size:11.5px}
+    </style>
+  </defs>
+
+  <rect width="1480" height="1110" fill="url(#bg)"/>
+  <rect width="1480" height="1110" fill="url(#vig)"/>
+
+  <!-- Title -->
+  <text x="50" y="58" font-size="32" font-weight="700" class="t">Daily Quest AI Agent</text>
+  <text x="50" y="86" font-size="15.5" class="m">Full-stack architecture &amp; request workflow — React frontend · Node/Express bridge · Python/FastAPI AI engine</text>
+  <rect x="1180" y="38" width="250" height="34" rx="17" fill="#646cff" fill-opacity="0.16" stroke="#818cf8" stroke-opacity="0.5"/>
+  <text x="1305" y="60" font-size="13" font-weight="600" fill="#aeb6ff" text-anchor="middle">3-tier · LLM quest generator</text>
+
+  <!-- Actor -->
+  <rect x="168" y="104" width="144" height="32" rx="16" fill="#1b2233" stroke="#445566" stroke-opacity="0.7"/>
+  <text x="240" y="125" font-size="13.5" font-weight="600" class="t" text-anchor="middle">Student / Browser</text>
+  <line x1="240" y1="138" x2="240" y2="149" stroke="#cbd5e8" stroke-width="2" marker-end="url(#ah)"/>
+  <circle cx="266" cy="143" r="11" fill="#61dafb"/><text x="266" y="147" font-size="12" font-weight="700" fill="#06222b" text-anchor="middle">1</text>
+
+  <!-- ============ PANEL A : FRONTEND ============ -->
+  <g filter="url(#sh)">
+    <rect x="50" y="150" width="380" height="545" rx="18" fill="#141a27" stroke="#61dafb" stroke-opacity="0.45"/>
+  </g>
+  <path d="M50,226 V168 Q50,150 68,150 H412 Q430,150 430,168 V226 Z" fill="#61dafb" fill-opacity="0.14"/>
+  <rect x="324" y="160" width="92" height="22" rx="11" fill="#61dafb"/><text x="370" y="175" font-size="11" font-weight="700" fill="#06222b" text-anchor="middle">1 · CLIENT</text>
+  <text x="70" y="192" font-size="20" font-weight="700" class="t">React Frontend</text>
+  <text x="70" y="214" font-size="12.5" class="m">Vite dev server · :5173  (built to /dist)</text>
+
+  <g class="chiprow">
+    <rect x="70" y="244" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#61dafb" stroke-opacity="0.25"/>
+    <circle cx="92" cy="270" r="6" fill="#61dafb"/><text x="112" y="266" class="ct">React 19</text><text x="112" y="284" class="cs">Components: App.jsx · Main.jsx</text>
+  </g>
+  <g>
+    <rect x="70" y="306" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#61dafb" stroke-opacity="0.25"/>
+    <circle cx="92" cy="332" r="6" fill="#646cff"/><text x="112" y="328" class="ct">Vite 7</text><text x="112" y="346" class="cs">Bundler &amp; dev server · HMR</text>
+  </g>
+  <g>
+    <rect x="70" y="368" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#61dafb" stroke-opacity="0.25"/>
+    <circle cx="92" cy="394" r="6" fill="#8b93f8"/><text x="112" y="390" class="ct">axios</text><text x="112" y="408" class="cs">HTTP client → Node API (/api)</text>
+  </g>
+  <g>
+    <rect x="70" y="430" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#61dafb" stroke-opacity="0.25"/>
+    <circle cx="92" cy="456" r="6" fill="#61dafb"/><text x="112" y="452" class="ct">UI state (hooks)</text><text x="112" y="470" class="cs">course · questData · loading · auth</text>
+  </g>
+  <g>
+    <rect x="70" y="492" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#61dafb" stroke-opacity="0.25"/>
+    <circle cx="92" cy="518" r="6" fill="#f0a020"/><text x="112" y="514" class="ct">Password gate</text><text x="112" y="532" class="cs">sends x-access-token header</text>
+  </g>
+  <g>
+    <rect x="70" y="554" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#61dafb" stroke-opacity="0.25"/>
+    <circle cx="92" cy="580" r="6" fill="#61dafb"/><text x="112" y="576" class="ct">Quest Card UI</text><text x="112" y="594" class="cs">title · challenge · hint · +XP</text>
+  </g>
+  <text x="70" y="644" font-size="12.5" class="m">User picks a course, types today's notes,</text>
+  <text x="70" y="664" font-size="12.5" class="m">and hits <tspan fill="#61dafb" font-weight="600">Generate</tspan>.</text>
+
+  <!-- ============ PANEL B : NODE BRIDGE ============ -->
+  <g filter="url(#sh)">
+    <rect x="550" y="150" width="380" height="545" rx="18" fill="#141a27" stroke="#6cc24a" stroke-opacity="0.45"/>
+  </g>
+  <path d="M550,226 V168 Q550,150 568,150 H912 Q930,150 930,168 V226 Z" fill="#6cc24a" fill-opacity="0.14"/>
+  <rect x="812" y="160" width="100" height="22" rx="11" fill="#6cc24a"/><text x="862" y="175" font-size="11" font-weight="700" fill="#0a2208" text-anchor="middle">2 · BRIDGE</text>
+  <text x="570" y="192" font-size="20" font-weight="700" class="t">Node.js + Express</text>
+  <text x="570" y="214" font-size="12.5" class="m">Express 5 · :5000  (also serves React build)</text>
+
+  <g>
+    <rect x="570" y="244" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#6cc24a" stroke-opacity="0.25"/>
+    <circle cx="592" cy="270" r="6" fill="#6cc24a"/><text x="612" y="266" class="ct">Express 5</text><text x="612" y="284" class="cs">REST routes · request validation</text>
+  </g>
+  <g>
+    <rect x="570" y="306" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#6cc24a" stroke-opacity="0.25"/>
+    <circle cx="592" cy="332" r="6" fill="#9aa6b8"/><text x="612" y="328" class="ct">CORS · express.json</text><text x="612" y="346" class="cs">middleware</text>
+  </g>
+  <g>
+    <rect x="570" y="368" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#6cc24a" stroke-opacity="0.25"/>
+    <circle cx="592" cy="394" r="6" fill="#f0a020"/><text x="612" y="390" class="ct">Auth middleware</text><text x="612" y="408" class="cs">checks ADMIN_PASSWORD</text>
+  </g>
+  <g>
+    <rect x="570" y="430" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#6cc24a" stroke-opacity="0.25"/>
+    <circle cx="592" cy="456" r="6" fill="#4DB33D"/><text x="612" y="452" class="ct">Mongoose 9 (ODM)</text><text x="612" y="470" class="cs">Course schema · seeds 6 courses</text>
+  </g>
+  <g>
+    <rect x="570" y="492" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#6cc24a" stroke-opacity="0.25"/>
+    <circle cx="592" cy="518" r="6" fill="#6cc24a"/><text x="612" y="514" class="ct">/api/generate-quest</text><text x="612" y="532" class="cs">proxies to Python, then saves result</text>
+  </g>
+  <g>
+    <rect x="570" y="554" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#6cc24a" stroke-opacity="0.25"/>
+    <circle cx="592" cy="580" r="6" fill="#9aa6b8"/><text x="612" y="576" class="ct">Static + SPA fallback</text><text x="612" y="594" class="cs">serves /dist · /api/courses CRUD</text>
+  </g>
+  <text x="570" y="644" font-size="12.5" class="m">The bridge authenticates, forwards to the</text>
+  <text x="570" y="664" font-size="12.5" class="m">AI service, and persists every Q&amp;A.</text>
+
+  <!-- ============ PANEL C : PYTHON AI ============ -->
+  <g filter="url(#sh)">
+    <rect x="1050" y="150" width="380" height="545" rx="18" fill="#141a27" stroke="#4b9fd6" stroke-opacity="0.45"/>
+  </g>
+  <path d="M1050,226 V168 Q1050,150 1068,150 H1412 Q1430,150 1430,168 V226 Z" fill="#4b9fd6" fill-opacity="0.14"/>
+  <rect x="1300" y="160" width="112" height="22" rx="11" fill="#4b9fd6"/><text x="1356" y="175" font-size="11" font-weight="700" fill="#04202e" text-anchor="middle">3 · AI ENGINE</text>
+  <text x="1070" y="192" font-size="20" font-weight="700" class="t">Python + FastAPI</text>
+  <text x="1070" y="214" font-size="12.5" class="m">uvicorn ASGI server · :8000</text>
+
+  <g>
+    <rect x="1070" y="244" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#4b9fd6" stroke-opacity="0.25"/>
+    <circle cx="1092" cy="270" r="6" fill="#19c39a"/><text x="1112" y="266" class="ct">FastAPI router</text><text x="1112" y="284" class="cs">POST /api/generate · health check</text>
+  </g>
+  <g>
+    <rect x="1070" y="306" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#4b9fd6" stroke-opacity="0.25"/>
+    <circle cx="1092" cy="332" r="6" fill="#4b9fd6"/><text x="1112" y="328" class="ct">ChatController</text><text x="1112" y="346" class="cs">receives course + notes</text>
+  </g>
+  <g>
+    <rect x="1070" y="368" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#4b9fd6" stroke-opacity="0.25"/>
+    <circle cx="1092" cy="394" r="6" fill="#4b9fd6"/><text x="1112" y="390" class="ct">ChatManager</text><text x="1112" y="408" class="cs">model routing: gpt-4o vs 4o-mini</text>
+  </g>
+  <g>
+    <rect x="1070" y="430" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#4b9fd6" stroke-opacity="0.25"/>
+    <circle cx="1092" cy="456" r="6" fill="#4b9fd6"/><text x="1112" y="452" class="ct">ChatService</text><text x="1112" y="470" class="cs">LangChain orchestration</text>
+  </g>
+  <g>
+    <rect x="1070" y="492" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#4b9fd6" stroke-opacity="0.25"/>
+    <circle cx="1092" cy="518" r="6" fill="#1cc8a0"/><text x="1112" y="514" class="ct">LangChain</text><text x="1112" y="532" class="cs">LLMChain · PromptTemplate · Memory</text>
+  </g>
+  <g>
+    <rect x="1070" y="554" width="340" height="52" rx="10" fill="#ffffff" fill-opacity="0.035" stroke="#4b9fd6" stroke-opacity="0.25"/>
+    <circle cx="1092" cy="580" r="6" fill="#9aa6b8"/><text x="1112" y="576" class="ct">system_prompt.txt</text><text x="1112" y="594" class="cs">defines Quest JSON output format</text>
+  </g>
+  <text x="1070" y="644" font-size="12.5" class="m">Controller → Manager → Service builds a</text>
+  <text x="1070" y="664" font-size="12.5" class="m">prompt and calls the LLM via LangChain.</text>
+
+  <!-- ===== inter-panel arrows ===== -->
+  <!-- forward A->B (2) -->
+  <line x1="430" y1="300" x2="548" y2="300" stroke="#cbd5e8" stroke-width="2.4" marker-end="url(#ah)"/>
+  <circle cx="490" cy="300" r="14" fill="#6cc24a"/><text x="490" y="305" font-size="13" font-weight="700" fill="#0a2208" text-anchor="middle">2</text>
+  <text x="490" y="276" font-size="11" class="m" text-anchor="middle">POST /api/generate-quest</text>
+  <text x="490" y="334" font-size="10.5" class="m" text-anchor="middle">{course, notes} + token</text>
+  <!-- return B->A (8) -->
+  <line x1="550" y1="468" x2="432" y2="468" stroke="#8b93f8" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#ahb)"/>
+  <circle cx="490" cy="468" r="14" fill="#8b93f8"/><text x="490" y="473" font-size="13" font-weight="700" fill="#0c1030" text-anchor="middle">8</text>
+  <text x="490" y="444" font-size="11" class="m" text-anchor="middle">Quest JSON →</text>
+  <text x="490" y="502" font-size="10.5" class="m" text-anchor="middle">render card</text>
+
+  <!-- forward B->C (3) -->
+  <line x1="930" y1="300" x2="1048" y2="300" stroke="#cbd5e8" stroke-width="2.4" marker-end="url(#ah)"/>
+  <circle cx="990" cy="300" r="14" fill="#4b9fd6"/><text x="990" y="305" font-size="13" font-weight="700" fill="#04202e" text-anchor="middle">3</text>
+  <text x="990" y="276" font-size="11" class="m" text-anchor="middle">POST /api/generate</text>
+  <text x="990" y="334" font-size="10.5" class="m" text-anchor="middle">{course, notes}</text>
+  <!-- return C->B (6) -->
+  <line x1="1050" y1="468" x2="932" y2="468" stroke="#8b93f8" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#ahb)"/>
+  <circle cx="990" cy="468" r="14" fill="#8b93f8"/><text x="990" y="473" font-size="13" font-weight="700" fill="#0c1030" text-anchor="middle">6</text>
+  <text x="990" y="444" font-size="11" class="m" text-anchor="middle">Quest JSON</text>
+  <text x="990" y="502" font-size="10.5" class="m" text-anchor="middle">response</text>
+
+  <!-- ===== bottom row boxes ===== -->
+  <!-- A box: output / quest json -->
+  <g filter="url(#sh)"><rect x="50" y="742" width="380" height="124" rx="14" fill="#10151f" stroke="#61dafb" stroke-opacity="0.35"/></g>
+  <text x="70" y="768" font-size="13.5" font-weight="700" class="t">Output · Quest Card (JSON)</text>
+  <text x="70" y="792" class="mono" font-size="11.5" fill="#9fb4c9">{ "title": "Simplex Stumper",</text>
+  <text x="84" y="810" class="mono" font-size="11.5" fill="#9fb4c9">"challenge": "Explain the…",</text>
+  <text x="84" y="828" class="mono" font-size="11.5" fill="#9fb4c9">"hint": "Think constraints…",</text>
+  <text x="84" y="846" class="mono" font-size="11.5" fill="#9fb4c9">"difficulty": 7 }  → +XP</text>
+
+  <!-- B box: MongoDB -->
+  <g filter="url(#sh)"><rect x="550" y="742" width="380" height="124" rx="14" fill="#10151f" stroke="#4DB33D" stroke-opacity="0.4"/></g>
+  <ellipse cx="598" cy="784" rx="22" ry="8" fill="#4DB33D" fill-opacity="0.25" stroke="#4DB33D"/>
+  <path d="M576,784 V812 Q576,820 598,820 Q620,820 620,812 V784" fill="#4DB33D" fill-opacity="0.18" stroke="#4DB33D"/>
+  <ellipse cx="598" cy="784" rx="22" ry="8" fill="none" stroke="#4DB33D"/>
+  <text x="638" y="780" font-size="15" font-weight="700" class="t">MongoDB · myDB</text>
+  <text x="638" y="800" class="cs" font-size="12">Persists each prompt + answer</text>
+  <text x="570" y="846" class="mono" font-size="11" fill="#9bbf8f">Course { name, description, prompts[], answers[] }</text>
+
+  <!-- C box: OpenAI -->
+  <g filter="url(#sh)"><rect x="1050" y="742" width="380" height="124" rx="14" fill="#10151f" stroke="#19c39a" stroke-opacity="0.45"/></g>
+  <circle cx="1090" cy="788" r="18" fill="#10a37f" fill-opacity="0.2" stroke="#19c39a"/>
+  <text x="1090" y="793" font-size="15" font-weight="700" fill="#19c39a" text-anchor="middle">AI</text>
+  <text x="1122" y="780" font-size="15" font-weight="700" class="t">OpenAI API</text>
+  <text x="1122" y="800" class="cs" font-size="12">Chat Completions endpoint</text>
+  <text x="1070" y="846" class="mono" font-size="11.5" fill="#86d9c4">model: gpt-4o  ·  gpt-4o-mini  (temp 0.3)</text>
+
+  <!-- down arrows to datastores -->
+  <line x1="240" y1="695" x2="240" y2="740" stroke="#8b93f8" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#ahb)"/>
+  <line x1="740" y1="695" x2="740" y2="740" stroke="#cbd5e8" stroke-width="2.2" marker-end="url(#ah)"/>
+  <circle cx="766" cy="718" r="13" fill="#4DB33D"/><text x="766" y="723" font-size="12" font-weight="700" fill="#0a2208" text-anchor="middle">7</text>
+  <line x1="1240" y1="695" x2="1240" y2="740" stroke="#cbd5e8" stroke-width="2.2" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <circle cx="1268" cy="718" r="14" fill="#19c39a"/><text x="1268" y="723" font-size="11.5" font-weight="700" fill="#04202e" text-anchor="middle">4·5</text>
+
+  <!-- ===== bottom: lifecycle + stack ===== -->
+  <g filter="url(#sh)"><rect x="50" y="905" width="660" height="180" rx="14" fill="#10151f" stroke="#2c3650"/></g>
+  <text x="72" y="934" font-size="15" font-weight="700" class="t">End-to-end request flow</text>
+  <text x="72" y="962" font-size="12.5" class="m"><tspan fill="#61dafb" font-weight="700">1</tspan>  Student selects a course and enters notes.</text>
+  <text x="72" y="984" font-size="12.5" class="m"><tspan fill="#6cc24a" font-weight="700">2</tspan>  React → POST /api/generate-quest (+ token).</text>
+  <text x="72" y="1006" font-size="12.5" class="m"><tspan fill="#6cc24a" font-weight="700">3</tspan>  Express authenticates → POST to FastAPI.</text>
+  <text x="72" y="1028" font-size="12.5" class="m"><tspan fill="#4b9fd6" font-weight="700">4</tspan>  ChatManager picks model; LangChain builds prompt.</text>
+  <text x="396" y="962" font-size="12.5" class="m"><tspan fill="#19c39a" font-weight="700">5</tspan>  OpenAI returns structured Quest JSON.</text>
+  <text x="396" y="984" font-size="12.5" class="m"><tspan fill="#8b93f8" font-weight="700">6</tspan>  Python sends JSON back to Express.</text>
+  <text x="396" y="1006" font-size="12.5" class="m"><tspan fill="#4DB33D" font-weight="700">7</tspan>  Express saves prompt + answer to MongoDB.</text>
+  <text x="396" y="1028" font-size="12.5" class="m"><tspan fill="#8b93f8" font-weight="700">8</tspan>  React renders the gamified Quest Card.</text>
+  <text x="72" y="1060" font-size="11.5" class="m" font-style="italic">Quest fields: title · challenge · hint · difficulty (1–10) → XP reward.</text>
+
+  <g filter="url(#sh)"><rect x="740" y="905" width="690" height="180" rx="14" fill="#10151f" stroke="#2c3650"/></g>
+  <text x="762" y="934" font-size="15" font-weight="700" class="t">Libraries, frameworks &amp; tooling</text>
+  <circle cx="768" cy="960" r="5" fill="#61dafb"/><text x="782" y="965" font-size="12.5" class="m"><tspan fill="#cdd6e6" font-weight="600">Frontend</tspan> — React 19 · Vite 7 · axios</text>
+  <circle cx="768" cy="988" r="5" fill="#6cc24a"/><text x="782" y="993" font-size="12.5" class="m"><tspan fill="#cdd6e6" font-weight="600">API bridge</tspan> — Node.js · Express 5 · Mongoose 9 · MongoDB</text>
+  <circle cx="768" cy="1016" r="5" fill="#4b9fd6"/><text x="782" y="1021" font-size="12.5" class="m"><tspan fill="#cdd6e6" font-weight="600">AI engine</tspan> — Python · FastAPI · uvicorn · LangChain · OpenAI (gpt-4o / 4o-mini)</text>
+  <circle cx="768" cy="1044" r="5" fill="#f0a020"/><text x="782" y="1049" font-size="12.5" class="m"><tspan fill="#cdd6e6" font-weight="600">Config &amp; ops</tspan> — dotenv (.env) · ESLint · Render (render.yaml) · GitHub Actions CI</text>
+  <text x="762" y="1074" font-size="11" class="m" font-style="italic">Ports — React :5173 · Node :5000 · Python :8000</text>
+</svg>
